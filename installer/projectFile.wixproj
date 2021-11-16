@@ -1,0 +1,27 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+        <PropertyGroup>
+                <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+                <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+                <ProductVersion>3.0</ProductVersion>
+                <ProjectGuid>{caa10633-9725-4e4d-9630-da0677d31f53}</ProjectGuid>
+                <SchemaVersion>2.0</SchemaVersion>
+                <OutputName>WixProject1</OutputName>
+                <OutputType>Package</OutputType>
+                <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v[[Version.Major]].x\Wix.targets</WixTargetsPath>
+        </PropertyGroup>
+        <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+                <OutputPath>bin\$(Configuration)\</OutputPath>
+                <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+                <DefineConstants>Debug;ProductVersion=$(ProductVersion)</DefineConstants>
+                </PropertyGroup>
+                <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86'
+                ">
+                <OutputPath>bin\$(Configuration)\</OutputPath>
+                <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+                <DefineConstants>ProductVersion=$(ProductVersion)</DefineConstants>
+        </PropertyGroup>
+        <ItemGroup>
+                <Compile Include="setup.wxs" />
+        </ItemGroup>
+        <Import Project="$(WixTargetsPath)" />
+</Project>

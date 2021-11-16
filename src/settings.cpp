@@ -4,7 +4,9 @@
 #include <QString>
 #include <QComboBox>
 #include <QCheckBox>
+#include <QLabel>
 #include <windows.h>
+#include <fstream>
 #include <sstream>
 
 #include "settings.h"
@@ -44,6 +46,25 @@ Settings::Settings() {
         config->writeConfig("Position", text.toStdString());
     });
 
+    std::ifstream file("./installer/setup.wxs");
+    if(file.is_open()){
+        std::string line;
+        while(std::getline(file, line)) {
+            if(line.find("Version=") != std::string::npos){
+                VERSION_NUMBER = VERSION_NUMBER + line.substr(line.find('=\'')+1);
+                VERSION_NUMBER.erase(VERSION_NUMBER.size() - 2);
+                break; //make sure, only first occurence of version is read
+            }
+        }
+        file.close();
+    }
+    //Versioning Label
+    QLabel *label = new QLabel(this);
+    label->setFrameStyle(QFrame::Panel | QFrame::VLine);
+    label->setText(VERSION_NUMBER.c_str());
+    label->setAlignment(Qt::AlignBaseline | Qt::AlignCenter);
+    //TODO: ERROR handling if file not found and VERSION_NUMBER is undefined
+
     QCheckBox *checkbox = new QCheckBox("", this);
     bool autoPasteActivated;
     std::istringstream(config->getConfig("Autopaste")) >> std::boolalpha >> autoPasteActivated;
@@ -57,6 +78,7 @@ Settings::Settings() {
     layout->addRow(tr("&Theme:"), themeSelector);
     //layout->addRow(tr("&Position:"), positionSelector);
     layout->addRow(tr("&Automatic paste:"),checkbox);
+    layout->addRow(label);
     this->setLayout(layout);
 }
 

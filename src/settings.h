@@ -39,6 +39,7 @@ class Settings : public QWidget {
         const std::string BASE_STYLE_PATH = "/style_sheets/base.qss";
         const std::string DARK_STYLE_PATH = "/style_sheets/dark.qss";
         const std::string LIGHT_STYLE_PATH = "/style_sheets/light.qss";
+        std::string VERSION_NUMBER = "Version: ";
 
         IConfigManager *config;
 };

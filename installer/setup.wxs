@@ -1,11 +1,13 @@
 <?xml version='1.0' encoding='windows-1252'?>
+<?define ProductVersion = "1.2.3"?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
+	<?include ProductVersion.wxi?>
 	<Product Name='QuickKey' 
 		Manufacturer='Leo Kraft' 
 		Id='*' 
 		Language='2057' 
 		UpgradeCode='7d3905fc-6660-4d95-b128-32914adce035'
-		Version='1.4.2'>
+		Version="$(var.ProductVersion)">
 
 		<Package Id='*' 
 			Keywords='Installer' 
@@ -22,9 +24,9 @@
 		<UI>
 			<UIRef Id="Custom_InstallDir" />
 			<Publish Dialog="ExitAndOptionsDialog"
-    			Control="Finish" 
-   				Event="DoAction" 
-    			Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
+				Control="Finish" 
+				Event="DoAction" 
+			Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
 		</UI>
 
 		<!-- Dir structure -->
@@ -47,7 +49,7 @@
 				<Directory Id="ProgramMenuDir" Name="QuickKey" />
 			</Directory>
 		</Directory>
-		  
+
 		<Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
 
 		<!-- Set icon for add/remove program util-->
